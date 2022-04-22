@@ -1,22 +1,22 @@
 import { AgGridColumn, AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
-import { useContext } from "react";
-import { ProductContxt } from "../Stores/Context/ProductContext";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import TextInput from "../Input/TextInput";
 import NumberInput from "../Input/NumberInput";
 import { Link } from "react-router-dom";
 import DatePickerInput from "../Input/DatePickerInput";
 import CheckBoxInput from "../Input/CheckBoxInput";
+import { connect } from "react-redux";
+import mapProductDispachToProps from "../ViweService/ViweProductService";
 
-const ProductListPage = () => {
+const ProductListPage = (props) => {
   const {
     SearchallProducts,
     productListModel,
     SearchProducts,
     productFilterModel,
-  } = useContext(ProductContxt);
+  } = props
   const onGridReady = () => {
     SearchallProducts();
     document
@@ -148,4 +148,14 @@ const ProductListPage = () => {
     </Container>
   );
 };
-export default ProductListPage;
+const mapStateToProps=(state)=>{
+  
+  return{
+    productFilterModel:state.Product.productFilterModel,
+    productListModel:state.Product.productListModel
+
+  }
+  
+}
+
+export default connect(mapStateToProps,mapProductDispachToProps) (ProductListPage);

@@ -1,5 +1,11 @@
+import { GetNowpersianDate } from "../utils/persianDate"
 
-const ProductReducer = (state, action) => {
+const initialProductState = {
+    productListModel: [],
+    productFilterModel: { productName: "", sku: "", FromPrice: 0, ToPrice: 0, isAvailable:true,FromPublishDate: GetNowpersianDate(), ToPublishDate: GetNowpersianDate() },
+    productModel: { id: 0, productName: "", sku: "", price: 0, publishDate: GetNowpersianDate(), stockQuantity: 0 }
+}
+const ProductReducer = (state=initialProductState, action) => {
 
     switch (action.type) {
         case "setProductListModel":

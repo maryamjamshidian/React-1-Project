@@ -1,22 +1,23 @@
-import { useContext, useEffect } from "react";
+import {  useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
+import { connect } from "react-redux";
 import { useParams } from "react-router";
 import DatePickerInput from "../Input/DatePickerInput";
 import NumberInput from "../Input/NumberInput";
 import TextInput from "../Input/TextInput";
-import { ProductContxt } from "../Stores/Context/ProductContext";
+import mapProductDispachToProps from "../ViweService/ViweProductService";
 
-const ProductInfo = () => {
-  const { productModel, RegisterProducts, FindProduct, newproduct } =
-    useContext(ProductContxt);
+const ProductInfo = (props) => {
+  const { productModel, RegisterProducts, FindProduct, newproduct } =props;
 
-  const { productid } = useParams();
+  const { productid } = useParams()
   useEffect(() => {
     if (productid) {
       FindProduct(productid);
     } else {
       newproduct();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productModel.id]);
 
   return (
@@ -71,4 +72,10 @@ const ProductInfo = () => {
     </Container>
   );
 };
-export default ProductInfo;
+const mapStateToProps=(state)=>{
+  
+  return{productModel:state.Product.productModel}
+  
+}
+
+export default connect(mapStateToProps,mapProductDispachToProps) (ProductInfo);
