@@ -1,47 +1,17 @@
-import { AgGridColumn, AgGridReact } from "ag-grid-react";
-import "ag-grid-community/dist/styles/ag-grid.css";
-import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import TextInput from "../Input/TextInput";
 import NumberInput from "../Input/NumberInput";
-import { Link } from "react-router-dom";
 import DatePickerInput from "../Input/DatePickerInput";
 import CheckBoxInput from "../Input/CheckBoxInput";
 import { connect } from "react-redux";
 import mapProductDispachToProps from "../ViweService/ViweProductService";
+import ProductGrid from "./ProductGrid";
 
 const ProductListPage = (props) => {
-  const {
-    SearchallProducts,
-    productListModel,
-    SearchProducts,
-    productFilterModel,
-  } = props
-  const onGridReady = () => {
-    SearchallProducts();
-    document
-      .getElementsByClassName("ag-paging-row-summary-panel")
-      .item(0)
-      .childNodes.item(3).innerHTML = "از";
-    document
-      .getElementsByClassName("ag-paging-row-summary-panel")
-      .item(0)
-      .childNodes.item(7).innerHTML = "تا";
-    document
-      .getElementsByClassName("ag-paging-description")
-      .item(0)
-      .childNodes.item(1).innerHTML = "صفحه";
-    document
-      .getElementsByClassName("ag-paging-description")
-      .item(0)
-      .childNodes.item(5).innerHTML = "از";
-  };
-  const renderProductName = (params) => {
-    return (
-      <Link to={"/product/" + params.data.id}>{params.data.productName}</Link>
-    );
-  };
+  const { SearchProducts, productFilterModel } = props;
   return (
+    <div>
+
     <Container fluid className="productPage">
       <h2>لیست محصولات</h2>
       <br />
@@ -78,7 +48,7 @@ const ProductListPage = (props) => {
             model={productFilterModel}
             description="تا قیمت"
             id="ّFromPrice"
-          />{" "}
+            />{" "}
         </Col>
       </Row>
       <Row style={{ marginBottom: 20, marginTop: 10 }}>
@@ -117,45 +87,19 @@ const ProductListPage = (props) => {
       >
         جستجو
       </Button>
-      <div className="ag-theme-alpine " style={{ width: "100%", height: 400 }}>
-        <AgGridReact
-          pagination={true}
-          enableRtl
-          paginationPageSize={10}
-          rowClass="agRowStyle"
-          frameworkComponents={{ RenderproductName: renderProductName }}
-          onGridReady={onGridReady}
-          rowSelection={"multiple"}
-          rowMultiSelectWithClick={true}
-          rowData={productListModel}
-        >
-          <AgGridColumn
-            sortable
-            headerName="نام محصول"
-            field="productName"
-            cellRenderer="RenderproductName"
-          />
-          <AgGridColumn sortable headerName="کد محصول در انبار" field="sku" />
-          <AgGridColumn sortable headerName="قیمت" field="price" />
-          <AgGridColumn headerName="تعداد موجودی" field="stockQuantity" />
-          <AgGridColumn
-            sortable
-            headerName="تاریخ انتشار"
-            field="localPublishDate"
-          />
-        </AgGridReact>
-      </div>
     </Container>
+    <ProductGrid/>
+</div>
   );
 };
-const mapStateToProps=(state)=>{
-  
-  return{
-    productFilterModel:state.Product.productFilterModel,
-    productListModel:state.Product.productListModel
+const mapStateToProps = (state) => {
+  return {
+    productFilterModel: state.Product.productFilterModel,
+    productListModel: state.Product.productListModel,
+  };
+};
 
-  }
-  
-}
-
-export default connect(mapStateToProps,mapProductDispachToProps) (ProductListPage);
+export default connect(
+  mapStateToProps,
+  mapProductDispachToProps
+)(ProductListPage);
