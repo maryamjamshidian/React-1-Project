@@ -5,7 +5,6 @@ const ProductCategori=()=>{
 
 
 return(<Container className="fade alert alert-light show">
-I am react worker
 </Container>)
 
     
