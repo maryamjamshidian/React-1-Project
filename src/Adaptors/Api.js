@@ -2,8 +2,7 @@ import axios from "axios"
 
 
 
-const baseURL = "https://shop.devsharp.ir/api/"
-
+const baseURL = "https://shopapi.iranreact.com/api/"
  export const Get = async (action,data=null) => {
 
     let params = "";
