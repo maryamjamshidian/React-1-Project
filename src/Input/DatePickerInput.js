@@ -1,6 +1,6 @@
 import DatePicker from "react-datepicker2";
 import moment from "moment-jalaali";
-import {getPersianDate} from "../Stores/utils/persianDate"
+import { getPersianDate } from "../Viwes/Components/utils/persianDate";
 const DatePickerInput = ({ model, id, description }) => {
  
     const handleChange = (value) => {

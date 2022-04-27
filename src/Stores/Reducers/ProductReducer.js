@@ -1,5 +1,4 @@
-import { GetNowpersianDate } from "../utils/persianDate"
-
+import { GetNowpersianDate } from "../../Viwes/Components/utils/persianDate"
 const initialProductState = {
     productListModel: [],
     productFilterModel: { productName: "", sku: "", FromPrice: 0, ToPrice: 0, isAvailable:true,FromPublishDate: GetNowpersianDate(), ToPublishDate: GetNowpersianDate() },
